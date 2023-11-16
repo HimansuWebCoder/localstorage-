@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram</title>
+    <style>
+      /* Your styles remain unchanged */
+      * {
+        box-sizing: border-box;
+      }
+      .container {
+        max-width: 500px;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+      }
+
+      .img {
+        width: 200px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .img > img {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+      }
+
+      input {
+        width: 200px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid rgb(187, 187, 189);
+        background-color: rgb(250, 250, 250);
+        border-radius: 2px;
+        font-size: 10px;
+      }
+
+      .login {
+        display: flex;
+        width: 200px;
+        height: 30px;
+        background-color: rgba(0, 0, 248, 0.562);
+        justify-content: center;
+        align-items: center;
+        color: white;
+        border-radius: 5px;
+        margin-top: 10px;
+        font-size: 10px;
+      }
+
+      .savedValues {
+        margin-top: 20px;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          width: 100%;
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="img">
+        <img
+          src="https://www.designboom.com/wp-content/uploads/2016/05/new-instagram-logo-new-look-designboom-01.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder="Phone number, username, or email"
+          id="username"
+        /><br /><br />
+        <input type="text" placeholder="Password" id="password" /><br />
+      </div>
+      <div class="login" id="loginButton">
+        <h2>Log in</h2>
+      </div>
+      <div class="login" id="showSavedValuesButton">
+        <h2>Sign Up</h2>
+      </div>
+      <div class="savedValues" id="savedValues"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const savedValuesContainer = document.getElementById("savedValues");
+
+        // Check if there are saved values in local storage
+        const savedUsername = localStorage.getItem("username");
+        const savedPassword = localStorage.getItem("password");
+
+        // Populate input fields with saved values
+        document.getElementById("username").value = savedUsername || "";
+        document.getElementById("password").value = savedPassword || "";
+
+        // Add an event listener to the login button
+        document.getElementById("loginButton").addEventListener("click", function () {
+          // Get values from input fields
+          const usernameValue = document.getElementById("username").value;
+          const passwordValue = document.getElementById("password").value;
+
+          // Store values in local storage
+          localStorage.setItem("username", usernameValue);
+          localStorage.setItem("password", passwordValue);
+
+          // Clear input values
+          document.getElementById("username").value = "";
+          document.getElementById("password").value = "";
+        });
+
+        // Add an event listener to the showSavedValues button
+        document.getElementById("showSavedValuesButton").addEventListener("click", function () {
+          // Display saved values
+          savedValuesContainer.innerHTML = `
+            <p>Username: ${localStorage.getItem("username") || "Not available"}</p>
+            <p>Password: ${localStorage.getItem("password") || "Not available"}</p>
+          `;
+        });
+      });
+    </script>
+  </body>
+</html>
